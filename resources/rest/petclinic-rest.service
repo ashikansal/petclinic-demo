@@ -1,0 +1,13 @@
+[Unit]
+Description=PetClinic Rest Service
+After=syslog.target network.target
+
+[Service]
+SuccessExitStatus=143
+Type=simple
+Restart=always
+ExecStart=/usr/bin/java -jar /opt/spring-petclinic-rest-2.4.2.jar
+ExecStop=/bin/kill -15 $MAINPID
+
+[Install]
+WantedBy=multi-user.target

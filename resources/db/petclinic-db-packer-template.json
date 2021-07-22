@@ -1,0 +1,57 @@
+{
+  "variables": {
+    "subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
+    "client_id": "{{env `ARM_CLIENT_ID`}}",
+    "client_secret": "{{env `ARM_CLIENT_SECRET`}}",
+    "tenant_id": "{{env `ARM_TENANT_ID`}}",
+    "resource_group": "{{user `resource_group`}}",
+    "image_name": "{{user `image_name`}}"
+  },
+
+  "builders": [
+    {
+      "type": "azure-arm",
+      "subscription_id": "{{user `subscription_id`}}",
+      "client_id": "{{user `client_id`}}",
+      "client_secret": "{{user `client_secret`}}",
+      "tenant_id": "{{user `tenant_id`}}",
+      "managed_image_resource_group_name": "{{user `resource_group`}}",
+      "managed_image_name": "{{user `image_name`}}",
+      "os_type": "Linux",
+      "image_publisher": "Canonical",
+      "image_offer": "UbuntuServer",
+      "image_sku": "18.04-LTS",
+      "location": "east us",
+      "vm_size": "Standard_DS2_v2"
+    }
+  ],
+
+  "provisioners": [
+    { "type":  "file",
+      "source": "../resources/db/postgresql-setup.sh",
+      "destination": "/tmp/postgresql-setup.sh"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get install -y postgresql",
+        "sudo cp /tmp/postgresql-setup.sh /bin/postgresql-setup.sh",
+        "sudo chmod +x /bin/postgresql-setup.sh",
+        "sudo /bin/postgresql-setup.sh ",
+        "conf_file=`sudo -u postgres psql -c 'SHOW CONFIG_FILE' | sed -n '3 p'`",
+        "echo \"listen_addresses = '*'\" | sudo tee -a $conf_file > /dev/null",
+        "hba_file=`sudo -u postgres psql -c 'SHOW HBA_FILE' | sed -n '3 p'`",
+        "echo 'host all all 0.0.0.0/0 md5' | sudo tee -a $hba_file > /dev/null",
+        "sudo systemctl enable postgresql",
+        "sudo systemctl start postgresql",
+        "sudo /usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+      ]
+    }
+  ]
+}
+
+
+
+
+
+

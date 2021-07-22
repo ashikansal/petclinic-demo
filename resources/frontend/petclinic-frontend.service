@@ -1,0 +1,13 @@
+[Unit]
+Description=PetClinic Frontend Service
+After=syslog.target network.target
+
+[Service]
+SuccessExitStatus=143
+Type=simple
+Restart=always
+ExecStart=/bin/petclinic-frontend.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+[Install]
+WantedBy=multi-user.target

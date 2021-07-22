@@ -1,0 +1,53 @@
+{
+  "variables": {
+    "subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
+    "client_id": "{{env `ARM_CLIENT_ID`}}",
+    "client_secret": "{{env `ARM_CLIENT_SECRET`}}",
+    "tenant_id": "{{env `ARM_TENANT_ID`}}",
+    "resource_group": "{{user `resource_group`}}",
+    "image_name": "{{user `image_name`}}"
+  },
+
+  "builders": [
+    {
+      "type": "azure-arm",
+      "subscription_id": "{{user `subscription_id`}}",
+      "client_id": "{{user `client_id`}}",
+      "client_secret": "{{user `client_secret`}}",
+      "tenant_id": "{{user `tenant_id`}}",
+      "managed_image_resource_group_name": "{{user `resource_group`}}",
+      "managed_image_name": "{{user `image_name`}}",
+      "os_type": "Linux",
+      "image_publisher": "Canonical",
+      "image_offer": "UbuntuServer",
+      "image_sku": "18.04-LTS",
+      "location": "east us",
+      "vm_size": "Standard_DS2_v2"
+    }
+  ],
+
+  "provisioners": [
+    { "type":  "file",
+      "source": "../resources/rest/spring-petclinic-rest-2.4.2.jar",
+      "destination": "/tmp/spring-petclinic-rest-2.4.2.jar"
+    },
+    { "type":  "file",
+      "source": "../resources/rest/petclinic-rest.service",
+      "destination": "/tmp/petclinic-rest.service"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get install -y default-jre",
+        "sudo cp /tmp/spring-petclinic-rest-2.4.2.jar /opt/spring-petclinic-rest-2.4.2.jar",
+        "sudo cp /tmp/petclinic-rest.service /etc/systemd/system/petclinic-rest.service",
+        "sudo systemctl enable petclinic-rest",
+        "sudo systemctl start petclinic-rest",
+        "sudo /usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+      ]
+    }
+  ]
+}
+
+
+
