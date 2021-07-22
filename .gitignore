@@ -1,2 +1,3 @@
 **/.terraform
 tf_code_db
+**/*.jar
