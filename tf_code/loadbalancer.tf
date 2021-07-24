@@ -4,7 +4,6 @@ module "rest-lb" {
   lb_pip_name = "Rest-app-PIP"
   lb_name = "petclinic-rest-lb"
   rg_name = azurerm_resource_group.demo_rg.name
-  subnet_id = azurerm_subnet.rest-subnet.id
   lb_frontend_port = "9966"
   lb_backend_port = "9966"
   protocol = "TCP"
@@ -20,7 +19,6 @@ module "frontend-lb" {
   lb_pip_name = "Frontend-app-PIP"
   lb_name = "petclinic-frontend-lb"
   rg_name = azurerm_resource_group.demo_rg.name
-  subnet_id = azurerm_subnet.frontend-subnet.id
   lb_frontend_port = "4200"
   lb_backend_port = "4200"
   protocol = "TCP"

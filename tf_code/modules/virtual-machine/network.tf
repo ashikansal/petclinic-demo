@@ -12,7 +12,7 @@ resource "azurerm_network_interface" "nic" {
   ip_configuration {
     name = "${var.vm_name}-ip-conf"
     private_ip_address_allocation = "Dynamic"
-    subnet_id = var.subnet_id
+    subnet_id = data.azurerm_subnet.subnet.id
 //    public_ip_address_id = azurerm_public_ip.pip.id
   }
 }

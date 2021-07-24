@@ -6,8 +6,6 @@ variable "lb_name" {}
 
 variable "rg_name" {}
 
-variable "subnet_id" {}
-
 variable "lb_frontend_port" {}
 
 variable "lb_backend_port" {}

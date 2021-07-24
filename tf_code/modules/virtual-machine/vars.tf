@@ -13,7 +13,7 @@ variable "image_resource_group" {
 variable "vnet" {
 }
 
-variable "subnet_id" {
+variable "subnet" {
 }
 
 variable "vm_name" {
