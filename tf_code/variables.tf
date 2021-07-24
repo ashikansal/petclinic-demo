@@ -1,5 +1,3 @@
-variable "master_rg" {}
-variable "master_sa" {}
 variable "resource_group" {}
 variable "location" {}
 variable "subnets" {

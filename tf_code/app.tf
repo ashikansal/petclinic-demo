@@ -14,7 +14,6 @@ module "rest-app-vm" {
   subnet = "${var.subnets[0].name}-subnet"
   vm_name = "${var.rest_vm_name}-${count.index + 1}"
   vm_username = var.vm_username
-  vm_password = "pet@RESTapp"
   image_name = var.rest_image
   lb_backend_pool_id = module.rest-lb.lb_backend_pool_id
   depends_on = [azurerm_virtual_network.app-vnet]
@@ -28,7 +27,6 @@ module "frontend-app-vm" {
   subnet = "${var.subnets[1].name}-subnet"
   vm_name = "${var.frontend_vm_name}-${count.index + 1}"
   vm_username = var.vm_username
-  vm_password = "pet@FRONTapp"
   image_name = var.frontend_image
   lb_backend_pool_id = module.frontend-lb.lb_backend_pool_id
   depends_on = [azurerm_virtual_network.app-vnet]
@@ -43,7 +41,6 @@ module "db-app-vm" {
   subnet = "${var.subnets[2].name}-subnet"
   vm_name = "${var.db_vm_name}-${count.index + 1}"
   vm_username = var.vm_username
-  vm_password = "pet@DBapp"
   image_name = var.db_image
   enable_lb_association = false
   depends_on = [azurerm_virtual_network.app-vnet]

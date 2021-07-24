@@ -1,5 +1,3 @@
-master_rg = "ash-master-rg"
-master_sa = "tf0state0sa"
 resource_group = "petclinic-rg"
 location = "eastus"
 vnet_name = "petclinic-vnet"
@@ -61,13 +59,13 @@ vm_username = "petclinic"
 lb = {
   frontend = {
     port = "4200"
-    probe_path = "petclinic/actuator/health"
+    probe_path = "/"
     protocol = "TCP"
     dns_name = null
   },
   rest = {
     port = "9966"
-    probe_path = "/"
+    probe_path = "petclinic/actuator/health"
     protocol = "TCP"
     dns_name = "petclinic-rest-dev"
   }

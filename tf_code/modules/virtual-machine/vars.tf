@@ -29,9 +29,6 @@ variable "image_size" {
 variable "vm_username" {
 }
 
-variable "vm_password" {
-}
-
 variable "custom_data" {
   default = null
 }

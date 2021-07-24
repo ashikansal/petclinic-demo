@@ -4,8 +4,8 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
-    resource_group_name = var.master_rg
-    storage_account_name = var.master_sa
+    resource_group_name = "ash-master-rg"
+    storage_account_name = "tf0state0sa"
     container_name = "tfstate"
     key = "petclinic.tfstate"
   }
