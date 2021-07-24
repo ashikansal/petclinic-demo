@@ -11,13 +11,12 @@ module "rest-app-vm" {
   count = 2
   resource_group = azurerm_resource_group.demo_rg.name
   vnet = azurerm_virtual_network.app-vnet.name
-  subnet = var.subnets[0].name
-  vm_name = "rest-app-${count.index + 1}"
-  vm_username = "petclinic"
+  subnet = "${var.subnets[0].name}-subnet"
+  vm_name = "${var.rest_vm_name}-${count.index + 1}"
+  vm_username = var.vm_username
   vm_password = "pet@RESTapp"
-  image_name = "petclinic-rest"
+  image_name = var.rest_image
   lb_backend_pool_id = module.rest-lb.lb_backend_pool_id
-  nsg_id = azurerm_network_security_group.rest_subnet_nsg.id
   depends_on = [azurerm_virtual_network.app-vnet]
 }
 
@@ -26,13 +25,12 @@ module "frontend-app-vm" {
   count = 2
   resource_group = azurerm_resource_group.demo_rg.name
   vnet = azurerm_virtual_network.app-vnet.name
-  subnet = var.subnets[1].name
-  vm_name = "frontend-app-${count.index + 1}"
-  vm_username = "petclinic"
+  subnet = "${var.subnets[1].name}-subnet"
+  vm_name = "${var.frontend_vm_name}-${count.index + 1}"
+  vm_username = var.vm_username
   vm_password = "pet@FRONTapp"
-  image_name = "petclinic-frontend"
+  image_name = var.frontend_image
   lb_backend_pool_id = module.frontend-lb.lb_backend_pool_id
-  nsg_id = azurerm_network_security_group.frontend_subnet_nsg.id
   depends_on = [azurerm_virtual_network.app-vnet]
 //  custom_data = base64encode(local.frontend_custom_data)
 }
@@ -42,12 +40,11 @@ module "db-app-vm" {
   count = 1
   resource_group = azurerm_resource_group.demo_rg.name
   vnet = azurerm_virtual_network.app-vnet.name
-  subnet = var.subnets[2].name
-  vm_name = "db-app-${count.index + 1}"
-  vm_username = "petclinic"
+  subnet = "${var.subnets[2].name}-subnet"
+  vm_name = "${var.db_vm_name}-${count.index + 1}"
+  vm_username = var.vm_username
   vm_password = "pet@DBapp"
-  image_name = "petclinic-database"
-  nsg_id = azurerm_network_security_group.db_subnet_nsg.id
+  image_name = var.db_image
   enable_lb_association = false
   depends_on = [azurerm_virtual_network.app-vnet]
   //  custom_data = base64encode(local.frontend_custom_data)

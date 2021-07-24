@@ -1,3 +1,5 @@
 **/.terraform
 tf_code_db
 **/*.jar
+**/*.hcl
+resources/package.json

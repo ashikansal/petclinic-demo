@@ -40,8 +40,6 @@ variable "lb_backend_pool_id" {
   default = null
 }
 
-variable "nsg_id" {}
-
 variable "enable_lb_association" {
   type = bool
   default = true

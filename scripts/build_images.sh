@@ -14,6 +14,6 @@ cp -r spring-petclinic-rest/target/spring-petclinic-rest-2.4.2.jar ../resources/
 packer build -var "resource_group=$resource_group" -var "image_name=$rest_app_image_name" --force ../resources/rest/petclinic-rest-packer-template.json
 rm -rf spring-petclinic-rest
 
-#packer build -var "resource_group=$resource_group" -var "image_name=$frontend_app_image_name" --force ../resources/frontend/petclinic-frontend-packer-template.json
+packer build -var "resource_group=$resource_group" -var "image_name=$frontend_app_image_name" --force ../resources/frontend/petclinic-frontend-packer-template.json
 
-#packer build -var "resource_group=$resource_group" -var "image_name=$database_app_image_name" --force ../resources/db/petclinic-db-packer-template.json
+packer build -var "resource_group=$resource_group" -var "image_name=$database_app_image_name" --force ../resources/db/petclinic-db-packer-template.json
