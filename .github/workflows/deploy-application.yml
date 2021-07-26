@@ -1,8 +1,14 @@
 name: Deploy Petclinic Application
 on:
   push:
-    branch:
-      master
+    branches:
+      - master
+    paths:
+      - tf_code
+  workflow_run:
+    workflows: ["Build Base Packer Images"]
+    types:
+      - completed
 
 jobs:
   deploy-application:
