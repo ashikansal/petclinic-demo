@@ -19,6 +19,4 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Use latest Packer
-          uses: hashicorp-contrib/setup-packer@v1
-
-
+        uses: hashicorp-contrib/setup-packer@v1
