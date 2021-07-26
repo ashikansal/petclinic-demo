@@ -20,3 +20,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Use latest Packer
         uses: hashicorp-contrib/setup-packer@v1
+      - name: Setup base images
+        run: |
+          cd scripts && sh ./build_images.sh
