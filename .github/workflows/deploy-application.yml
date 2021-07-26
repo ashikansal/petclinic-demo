@@ -1,0 +1,32 @@
+name: Deploy Petclinic Application
+on:
+  push:
+    branch:
+      master
+
+jobs:
+  deploy-application:
+    runs-on: ubuntu-latest
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 1.0.1
+          tf_actions_subcommand: 'init'
+          tf_actions_working_dir: "./tf_code"
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 1.0.1
+          tf_actions_subcommand: 'plan'
+          tf_actions_working_dir: "./tf_code"
+          args: '-var-file config/dev.tfvars'
+
+
