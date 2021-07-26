@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 resource_group="ash-master-rg"
 rest_app_image_name="petclinic-rest"

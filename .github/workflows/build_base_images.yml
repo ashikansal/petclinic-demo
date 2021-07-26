@@ -1,11 +1,12 @@
 name: Build Base Packer Images
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'resources/**'
-      - 'scripts/**'
+  workflow_dispatch
+#  push:
+#    branches:
+#      - master
+#    paths:
+#      - 'resources/**'
+#      - 'scripts/**'
 
 jobs:
   build_image:
