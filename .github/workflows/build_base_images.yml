@@ -4,8 +4,8 @@ on:
     branches:
       - master
     paths:
-      - resources
-      - scripts
+      - 'resources/**'
+      - 'scripts/**'
 
 jobs:
   build_image:

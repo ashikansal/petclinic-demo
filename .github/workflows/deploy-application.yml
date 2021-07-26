@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - tf_code
+      - 'tf_code/**'
   workflow_run:
     workflows: ["Build Base Packer Images"]
     types:
