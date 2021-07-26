@@ -11,7 +11,6 @@ cp -r ../resources/rest/application-postgresql.properties spring-petclinic-rest/
 cd spring-petclinic-rest && ./mvnw package
 cd ..
 cp -r spring-petclinic-rest/target/spring-petclinic-rest-2.4.2.jar ../resources/rest/
-
 packer build -var "resource_group=$resource_group" -var "image_name=$rest_app_image_name" --force ../resources/rest/petclinic-rest-packer-template.json
 rm -rf spring-petclinic-rest
 
