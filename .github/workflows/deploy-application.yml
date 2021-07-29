@@ -9,6 +9,7 @@ on:
     workflows: ["Build Base Packer Images"]
     types:
       - completed
+  workflow_dispatch
 
 jobs:
   deploy-application:
