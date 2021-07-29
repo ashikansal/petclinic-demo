@@ -21,5 +21,3 @@ cd scripts && ./build_images.sh
 ## 4) Deploy Petclinic Application
 
 cd tf_code && terraform apply -var-file config/dev.tfvars --auto-approve
-
-
